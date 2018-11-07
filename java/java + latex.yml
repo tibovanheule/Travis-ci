@@ -1,0 +1,27 @@
+language: java
+jdk:
+  - oraclejdk8
+sudo: required
+addons:
+  apt:
+    packages:
+      - "texlive-latex-extra"
+cache:
+  apt: true
+script:
+  - cd code
+  - ant build.modules
+  - cd ../
+  - rm -R verslag_pdf
+  - mkdir verslag_pdf
+  - cd latex
+  - pdflatex -output-directory ../verslag_pdf ./verslag.tex
+  - pdflatex -output-directory ../verslag_pdf ./verslag.tex
+  - git remote add origin2 https://<username>:<ACCESS_KEY>@github.com/tibovanheule/palindromen.git
+  - cd ../
+  - git add ./verslag_pdf/verslag.pdf
+  - git commit -m 'Travis PDF build [ci skip]'
+  - git push origin2 HEAD:master
+branches:
+  only:
+  - master
