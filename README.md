@@ -1,2 +1,2 @@
 # Travis-ci
-a callection of my Travis CI configurations
+a collection of my Travis CI configurations
