@@ -21,10 +21,10 @@ matrix:
     - os: windows        
 script:
   - npm install
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then build -l ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then build -w ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then build -m ; fi
-  - git remote add tibo https://tibovanheule:<Prersonal Access Token>@github.com/tibovanheule/Imperium-Desktop.git
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then build -l --publish=never; fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then build -w --publish=never; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then build -m --publish=never; fi
+  - git remote add tibo https://tibovanheule:<Prersonal Access Token>@<Github repo>
   - git add .
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then git commit -m 'Travis linux build [ci skip]'; fi
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then git commit -m 'Travis windows build [ci skip]' ; fi
