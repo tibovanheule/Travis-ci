@@ -1,4 +1,4 @@
-# WIP 
+# USES electron-builder packages 
 language: node_js
 node_js:
   - '10'
@@ -21,15 +21,9 @@ matrix:
     - os: windows        
 script:
   - npm install
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then build -l --publish=never; fi
-  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then build -w --publish=never; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then build -m --publish=never; fi
-  - git remote add tibo https://tibovanheule:<Prersonal Access Token>@<Github repo>
-  - git add .
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then git commit -m 'Travis linux build [ci skip]'; fi
-  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then git commit -m 'Travis windows build [ci skip]' ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then git commit -m 'Travis mac build [ci skip]' ; fi
-  - git push tibo HEAD:master
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then GH_TOKEN=<Prersonal Access Token> build -l --publish=always; fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then GH_TOKEN=<Prersonal Access Token> build -w --publish=always; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then GH_TOKEN=<Prersonal Access Token> build -m --publish=always; fi
 branches:
   only:
   - master
