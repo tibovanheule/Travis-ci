@@ -1,0 +1,35 @@
+# WIP 
+language: node_js
+node_js:
+  - '10'
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+      sudo: required
+      cache:
+        apt: true
+        yarn: true
+      addons:
+        apt:
+          packages:
+              - libstdc++6
+              - bsdtar
+              - rpm
+    - os: osx
+      sudo: required
+    - os: windows        
+script:
+  - npm install
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then build -l ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then build -w ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then build -m ; fi
+  - git remote add tibo https://tibovanheule:178124be91c052260bcdfdf662f5d759b2f2acef@github.com/tibovanheule/Imperium-Desktop.git
+  - git add .
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then git commit -m 'Travis linux build [ci skip]'; fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then git commit -m 'Travis windows build [ci skip]' ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then git commit -m 'Travis mac build [ci skip]' ; fi
+  - git push tibo HEAD:master
+branches:
+  only:
+  - master
